@@ -1,0 +1,93 @@
+
+
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;    
+}
+
+.heading {
+    width: 50%;
+    margin: 30px auto;
+    text-align: center;
+    color: black;
+    background-color: #eee;
+    border: 2px solid #ffa;
+    border-radius: 20px;
+    margin-top: 150px;
+}
+
+form {
+    width: 50%;
+    margin: 30px auto; 
+    background: #ffa;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+form p {
+    color: red;
+    margin: 0px;
+    text-align: center;
+    padding-bottom: 5px;
+    
+}
+
+.task_input {
+    width: 78%;
+    height: 15px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.task_btn {
+    height: 39px;
+    padding: 5px 40px;
+    background: blanchedalmond;
+    border-radius: 18px;
+    border: 1px solid black;
+    /* margin-right: 10px; */
+    margin-left: 20px;
+}
+
+table {
+    width: 50%;
+    margin: 30px auto;
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid black;
+}
+
+th {
+    font-size: 19px;
+    color: black;
+}
+
+th, td {
+    border: none;
+    height: 30px;
+    padding: 30px;
+}
+
+tr:hover {
+    background: blanchedalmond;
+}
+
+.task {
+    text-align: left;
+}
+
+.delete {
+    text-align: center;
+}
+
+.delete a {
+    color: white;
+   padding: 6px 13px; 
+   background: rgb(165, 12, 12);
+   border-radius: 3px;
+   text-decoration: none;
+}
+
