@@ -18,13 +18,14 @@
         <form method="POST"  action="index.php" class="comment_form">
             <div>
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name"> 
+                <input value="<?php echo $name; ?>" type="text" name="name" id="name"> 
             </div>
             <div>
                 <label for="comment">Comment</label>
-                <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+                <textarea name="comment" id="comment" cols="30" rows="5"><?php echo $comm; ?></textarea>
             </div>
             <button type="submit" name="submit" id="submit_btn">Post</button>
+            <button type="submit" name="edit" id="edit_btn">Save</button>
         </form>
     </div>
 
