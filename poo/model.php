@@ -1,108 +1,72 @@
-<?php 
+<?php
+    class Connection {
+        public $localhost = "localhost";
+        public $user = "root";
+        public $passwd = "";
+        public $database = "poo";
+        public $con;
 
-	Class Model{
+        public function __construct() {
+            try {
+                $this->con = new mysqli($this->localhost, $this->user,$this->passwd, $this->database);
+            } catch (Exception $e) {
+                echo "Not connected!" . $e->getMessage();
+            }
+        }
+        public function getC() {
+            return $this->con;
+        }
+    } 
 
-		private $server = "localhost";
-		private $username = "root";
-		private $password;
-		private $db = "poo";
-		private $conn;
+    class Treatment extends Connection {
+        
+        public function insert() {
+            if (isset($_POST['submit'])) {
+                if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message']) && !empty($_POST['number'])) {
+                    $name = $_POST['name'];
+                    $email = $_POST['email'];
+                    $number = $_POST['number'];
+                    $message = $_POST['message'];
 
-		public function __construct(){
-			try {
-				
-				$this->conn = new mysqli($this->server,$this->username,$this->password,$this->db);
-			} catch (Exception $e) {
-				echo "connection failed" . $e->getMessage();
-			}
-		}
+                    $query = "INSERT INTO records (name, email, mobile, message) VALUES ('$name', '$email', '$number', '$message')";
 
-		public function insert(){
+                    $c = $this->getC()->query($query);
+                    if ($c) {
+                        echo "<script>alert('Your Message has been sent successfully!')</script>";
+                        echo "<script>window.location.href = 'index.php'; </script>";
 
-			if (isset($_POST['submit'])) {
-				if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['mobile']) && isset($_POST['address'])) {
-					if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['mobile']) && !empty($_POST['address']) ) {
-						
-						$name = $_POST['name'];
-						$mobile = $_POST['mobile'];
-						$email = $_POST['email'];
-						$address = $_POST['address'];
+                    } else {
+                        echo "<script>alert('Not working!')</script>";
+                        echo "<script>window.location.href = 'index.php'; </script>";
+                    }
+                } else {
+                    echo "<script>alert('Empty field!')</script>";
+                }
+            }
+        }
 
-						$query = "INSERT INTO records (name,email,mobile,address) VALUES ('$name','$email','$mobile','$address')";
-						if ($sql = $this->conn->query($query)) {
-							echo "<script>alert('records added successfully');</script>";
-							echo "<script>window.location.href = 'index.php';</script>";
-						}else{
-							echo "<script>alert('failed');</script>";
-							echo "<script>window.location.href = 'index.php';</script>";
-						}
+        public function fetch() {
+            $data = Null;
 
-					}else{
-						echo "<script>alert('empty');</script>";
-						echo "<script>window.location.href = 'index.php';</script>";
-					}
-				}
-			}
-		}
+            $sql = "SELECT * FROM records";
+            if($q = $this->getC()->query($sql)) {
+                while ($row = mysqli_fetch_assoc($q)) {
+                    $data[] = $row;
+                }
+            }
+            return $data;
+        }
 
-		public function fetch(){
-			$data = null;
+        public function delete($id) {
+            $query = "DELETE FROM records WHERE id= '$id'";
+            if ($sql = $this->getC()->query($query)) {
+                return true;
+            } else {
+                return false;
+            }
+        }   
+        
+    }
 
-			$query = "SELECT * FROM records";
-			if ($sql = $this->conn->query($query)) {
-				while ($row = mysqli_fetch_assoc($sql)) {
-					$data[] = $row;
-				}
-			}
-			return $data;
-		}
 
-		public function delete($id){
-
-			$query = "DELETE FROM records where id = '$id'";
-			if ($sql = $this->conn->query($query)) {
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		public function fetch_single($id){
-
-			$data = null;
-
-			$query = "SELECT * FROM records WHERE id = '$id'";
-			if ($sql = $this->conn->query($query)) {
-				while ($row = $sql->fetch_assoc()) {
-					$data = $row;
-				}
-			}
-			return $data;
-		}
-
-		public function edit($id){
-
-			$data = null;
-
-			$query = "SELECT * FROM records WHERE id = '$id'";
-			if ($sql = $this->conn->query($query)) {
-				while($row = $sql->fetch_assoc()){
-					$data = $row;
-				}
-			}
-			return $data;
-		}
-
-		public function update($data){
-
-			$query = "UPDATE records SET name='$data[name]', email='$data[email]', mobile='$data[mobile]', address='$data[address]' WHERE id='$data[id] '";
-
-			if ($sql = $this->conn->query($query)) {
-				return true;
-			}else{
-				return false;
-			}
-		}
-	}
-
- ?>
+?>

@@ -1,18 +1,9 @@
 * {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 100%;
+    font-size: 25px;
 }
 
-.container {
-    margin: 30px auto;
-}
-
-.line {
-    color: black;
-    height: 1px;
-    background-color: black;
-}
-
-.btn {
+.btn, .row, input, textarea, label {
     margin-top: 10px;
 }
