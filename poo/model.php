@@ -64,7 +64,29 @@
             } else {
                 return false;
             }
-        }   
+        }  
+        
+        public function edit($id) {
+            $data = null;
+            $query = "SELECT * FROM records WHERE id='$id'";
+            if ($sql = $this->getC()->query($query)) {
+                while ($row = $sql->fetch_assoc()) {
+                    $data = $row;
+                }
+                return $data;
+            }
+        }
+
+        public function update($data) {
+            
+            $query = "UPDATE records SET name= '$data[name]', email= '$data[email]', mobile= '$data[mobile]', message='$data[message]' WHERE id= '$data[id]'";
+            
+            if ($sql = $this->getC()->query($query)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         
     }
 
